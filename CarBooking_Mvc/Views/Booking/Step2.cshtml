@@ -1,0 +1,58 @@
+﻿@model Step2ViewModel
+@{
+    ViewData["Title"] = "Choose Offer";
+}
+
+<form action="Step3" method="post">
+
+    <input type="hidden" name="location" value="@Model.Location" />
+    @foreach (var offer in Model.Offers)
+    {
+        <input type="hidden" name="offerData" value="@offer" />
+    }
+
+    <div>
+        <label class="form-label">Location: </label>
+        @Model.Location.City / @Model.Location.Country / @Model.Location.Name
+    </div>   
+
+    <div>
+        <label>Select offer:</label>
+
+        <table class="offer-table">
+            <tr class="offer-table-header-row">
+                <th>Offer</th>
+                <th colspan="2">Vehicle</th>
+                <th colspan="2">Vendor</th>
+            </tr>
+            @foreach (var offer in Model.Offers)
+            {
+                var controlId = "offer-" + @offer.OfferUid;
+
+                <tr class="offer-table-row">
+                    <td class="bordered-cell">
+                        <label class="form-label" for="@controlId">@offer.Price.Currency @offer.Price.Amount </label>
+                        <input type="radio" name="offerUid" value="@offer.OfferUid" id="@controlId" />
+                    </td>
+                    <td>
+                        @offer.Vehicle.ModelName / @offer.Vehicle.Sipp
+                    </td>
+                    <td class="border-right">
+                        <img src="@offer.Vehicle.ImageLink" alt="Auto" />
+                    </td>
+                    <td>
+                        @offer.Vendor.Name
+                    </td>
+                    <td>
+                        <img src="@offer.Vendor.ImageLink" alt="Auto" />
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <button class="btn btn-success" type="submit" id="to-step-3">
+            Continue
+        </button>
+        
+    </div>
+</form>

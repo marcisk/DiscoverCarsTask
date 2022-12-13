@@ -1,0 +1,58 @@
+﻿@model Step3ViewModel
+@{
+    ViewData["Title"] = "Finalize your car booking";
+}
+
+<form action="SubmitBookingOffer" method="post">
+    <input type="hidden" value="@Model.Location" name="location" />
+    <input type="hidden" value="@Model.Offer" name="offer" />
+
+    <fieldset title="Offer data">
+        <legend>Offer data</legend>
+        <div class="offer-review-block">
+            <div>Price:&nbsp;&nbsp;</div>
+            <div>@Model.Offer.Price.Currency @Model.Offer.Price.Amount </div>
+        </div>
+
+        <div class="offer-review-block">
+            <div>Vendor:&nbsp;&nbsp;</div>
+            <div>@Model.Offer.Vendor.Name </div>
+        </div>
+
+        <div class="offer-review-block">
+            <div>Location:&nbsp;&nbsp;</div>
+            <div>@Model.Location.Country / @Model.Location.City / @Model.Location.Name</div>
+        </div>
+
+        <div class="offer-review-block">
+            <div>Vehicle:&nbsp;&nbsp;</div>
+            <div>@Model.Offer.Vehicle.ModelName / @Model.Offer.Vehicle.Sipp </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Customer information</legend>
+        <div>
+            <label for="name" class="form-label">First name:</label>
+            <input type="text" name="name" id="name" class="form-control" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label for="surname" class="form-label">Surname:</label>
+            <input type="text" name="surname" id="surname" class="form-control" />
+            <span asp-validation-for="Surname"></span>
+        </div>
+    </fieldset>
+
+
+
+    <div id="submit-reminder">
+        Please fill remaining customer options, review your booking options and click "Create reservation"
+    </div>
+
+    <button class="btn btn-success" type="submit" id="submit-offer">
+        Create reservation
+    </button>
+
+</form>
